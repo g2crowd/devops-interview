@@ -9,7 +9,7 @@ Create a running web server that displays "Welcome to G2" when accessed via a we
 
 ## Challenge Requirements
 1. **Web Server URL:**
-   - The web server should be accessible at: `https://devops.sandbox.siftery.com`
+   - The web server should be accessible at: `https://interview.devops.g2.com`
 
 2. **Deployment Environment:**
    - The web server must run in an Nginx container within an EKS (Elastic Kubernetes Service) cluster on AWS.
@@ -28,15 +28,17 @@ Create a running web server that displays "Welcome to G2" when accessed via a we
 
 ## Access Provided
 1. **AWS Account:**
-   - Read-only access to the G2 Sandbox AWS account console.
+   - Read-only access to the G2 devops-sandbox AWS account console.
 
 2. **GitHub Repository:**
    - Admin access to the GitHub repository named `devops-interview`.
    - The repository will contain AWS keys stored as secrets.
 
 ## Steps to Complete the Challenge
+
 1. **Set Up EKS Cluster:**
    - Use Terraform to create an EKS cluster in AWS.
+   - IMPORTANT: all AWS resources must be creates in us-east-1 region (Virginia)
    
 2. **Configure Nginx Web Server:**
    - Deploy an Nginx container in the EKS cluster that serves the "Welcome to G2" page.
@@ -54,7 +56,7 @@ Create a running web server that displays "Welcome to G2" when accessed via a we
    - Modify the web page content in the GitHub repository and demonstrate that changes are automatically reflected on the web server.
 
 ## Resources
-- G2 Sandbox AWS account (read-only access)
+- G2 devops-sandbox AWS account (read-only access)
 - `devops-interview` GitHub repository (admin access with AWS keys stored as secrets)
 
 By following these steps, you will demonstrate your ability to set up and manage a scalable, secure, and cost-effective web server infrastructure in AWS, leveraging modern DevOps practices and tools. This challenge will test your proficiency in Terraform, Kubernetes, AWS, CI/CD pipelines, and best practices in security and cost management.
