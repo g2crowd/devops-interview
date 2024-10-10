@@ -114,3 +114,26 @@ resource "kubernetes_service" "nginx" {
     }
   }
 }
+
+resource "kubernetes_config_map" "nginx_html" {
+  metadata {
+    name      = format("tf-%s-nginx-html",var.name)
+    namespace = "default"
+  }
+
+  data = {
+    index.html = <<EOF
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Welcome to G2</title>
+      </head>
+      <body>
+        <h1>Welcome to G2</h1>
+      </body>
+      </html>
+    EOF
+  }
+}
