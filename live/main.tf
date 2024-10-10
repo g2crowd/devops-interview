@@ -45,3 +45,72 @@ module "eks" {
 data "aws_eks_cluster_auth" "eks" {
   name = aws_eks_cluster.eks.id
 }
+
+resource "kubernetes_deployment" "nginx" {
+  metadata {
+    name      = format("tf-%s-nginx-deployment",var.name)
+    namespace = "default"
+  }
+
+  spec {
+    replicas = 1
+
+    selector {
+      match_labels = {
+        app = "nginx"
+      }
+    }
+
+    template {
+      metadata {
+        labels = {
+          app = "nginx"
+        }
+      }
+
+      spec {
+        container {
+          name  = "nginx"
+          image = "nginx:latest"
+
+          ports {
+            container_port = 80
+          }
+
+          volume_mount {
+            name       = "html"
+            mount_path = "/usr/share/nginx/html"
+          }
+        }
+
+        volume {
+          name = "html"
+
+          config_map {
+            name = kubernetes_config_map.nginx_html.metadata[0].name
+          }
+        }
+      }
+    }
+  }
+}
+
+resource "kubernetes_service" "nginx" {
+  metadata {
+    name      = format("tf-%s-nginx-service",var.name)
+    namespace = "default"
+  }
+
+  spec {
+    selector = {
+      app = "nginx"
+    }
+
+    type = "LoadBalancer"
+
+    port {
+      port        = 80
+      target_port = 80
+    }
+  }
+}
